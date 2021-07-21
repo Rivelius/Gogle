@@ -9,28 +9,18 @@ export const retrieveSearchResults = async (searchTerm) => {
   const SearchString = getSearchString(searchTerm);
   const SearchResults = await requestData(SearchString);
   let resultArray = [];
-  if (SearchResults.hasOwnProperty("organic_results")) {
-    resultArray = processResults(SearchResults.organic_results);
+  if (SearchResults.hasOwnProperty("items")) {
+    resultArray = processResults(SearchResults.items);
   }
   return resultArray;
 };
 
 const getSearchString = (searchTerm) => {
-  const maxChars = getMaxChars(); //how many results we get
-  const rawSearchString = `http://api.serpstack.com/search?access_key=69004834aacf9655b099df06a3148a3c&query=${searchTerm}&num=${maxChars}&output=json`;
+  const rawSearchString = `https://customsearch.googleapis.com/customsearch/v1?key=AIzaSyCf_bWbJy_Y8v_2qba9CjVtRdZdWAiwZdk&cx=e63c6ca20192a6759&q=${searchTerm}`;
   const searchString = encodeURI(rawSearchString);
   return searchString;
 };
 
-//number of results based on viewport width
-const getMaxChars = () => {
-  const width = window.innerWidth || document.body.clientWidth;
-  let Chars;
-  if (width < 414) Chars = 15;
-  if (width >= 414 && width < 1400) Chars = 20;
-  if (width >= 1400) Chars = 30;
-  return Chars;
-};
 
 const requestData = async (searchString) => {
   try {
@@ -48,13 +38,15 @@ const processResults = (results) => {
     const id = key;
     const title = results[key].title;
     const text = results[key].snippet;
-    const url = results[key].url
+    const url = results[key].link
+    const link = results[key].formattedUrl;
   
     const item = {
       id: id,
       title: title,
       text: text,
-      url: url
+      url: url,
+      link: link
     };
     resultArray.push(item);
   });

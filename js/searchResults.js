@@ -23,6 +23,13 @@ export const buildSearchResults = (resultArray) => {
 const createResultItem = (result) => {
   const resultItem = document.createElement("div");
   resultItem.classList.add("resultItem");
+  const resultLink = document.createElement("div");
+  resultLink.classList.add("resultLink");
+  const resultDescription = document.createElement("p");
+  resultDescription.textContent = result.link;
+  resultLink.append(resultDescription);
+  resultItem.append(resultLink);
+
   const resultTitle = document.createElement("div");
   resultTitle.classList.add("resultTitle");
   const link = document.createElement("a");
@@ -33,6 +40,7 @@ const createResultItem = (result) => {
   resultItem.append(resultTitle);
   return resultItem;
 };
+
 
 const createResultText = (result) => {
   const resultText = document.createElement("div");

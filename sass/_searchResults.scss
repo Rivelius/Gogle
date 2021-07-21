@@ -31,6 +31,24 @@
       @include mq(768px) {
         padding: 0.5rem 0;
       }
+      .resultLink {
+        width: 100%;
+        text-align: left;
+        font-size: 14px;
+        line-height: 20;
+        margin-top: 1.5rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding: 0px 2px;
+        @include mq(768px) {
+          font-size: 1rem;
+          line-height: 28px;
+        }
+        p {
+          color: $text-above-color;
+        }
+      }
 
       .resultTitle {
         width: 100%;
